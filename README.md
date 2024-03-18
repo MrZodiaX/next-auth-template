@@ -15,3 +15,5 @@ npm i next-auth mongoose bcryptjs
 
 create account on mongo db
 add string for connection in .env file
+
+ npm init @eslint/config

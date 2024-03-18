@@ -1,8 +1,6 @@
 import { connectMongodb } from "@/lib/mongodb";
 import NextAuth from "next-auth/next";
 import User from "@/models/user";
-//import { CredentialsProvider } from "next-auth/providers";
-//import CredentialsProvider from "next-auth/providers/credentials";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from 'bcryptjs'
 
@@ -11,32 +9,32 @@ export const authOptions = {
         CredentialsProvider({
             name: "credentials",
             credentials: {},
-            
-            async authorize(credentials){
-                const {email, password} = credentials;
 
-                try{
+            async authorize(credentials) {
+                const { email, password } = credentials;
+
+                try {
                     await connectMongodb();
-                    console.log("email"+email);
-                    console.log("pass"+password);
+                    console.log("email" + email);
+                    console.log("pass" + password);
 
-                    const usr = await User.findOne({email})
+                    const usr = await User.findOne({ email })
                     console.log("done");
 
-                    if(!usr) {
+                    if (!usr) {
                         return null;
                     }
                     const passMatch = await bcrypt.compare(password, usr.password)
-                    
-                    if(!passMatch) 
+
+                    if (!passMatch)
                         return null;
-                    
+
                     return usr;
-                } catch (error){
-                    console.log("error getting creds"+error)
+                } catch (error) {
+                    console.log("error getting creds" + error)
                 }
 
-                return user;
+                return;
             }
         })
     ],
@@ -51,4 +49,4 @@ export const authOptions = {
 
 const handler = NextAuth(authOptions)
 
-export {handler as GET, handler as POST};
+export { handler as GET, handler as POST };
