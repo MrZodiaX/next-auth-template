@@ -12,7 +12,7 @@ export const authOptions = {
 
             async authorize(credentials) {
                 const { email, password } = credentials;
-
+                console.log("LOGIN backend")
                 try {
                     await connectMongodb();
                     console.log("email" + email);

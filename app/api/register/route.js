@@ -4,6 +4,8 @@ import bcrypt from "bcryptjs";
 import User from "@/models/user";
 
 export async function POST(req) {
+    console.log("POST register");
+
     try {
         const { name, email, password } = await req.json();
         await connectMongodb();
